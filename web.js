@@ -114,6 +114,14 @@ app.post('/api/user', function(req, res){
   });
 })
 
+app.post('/api/user/:nick_name', function(req, res) {
+  let sql = `UPDATE user SET profile_image="${req.body.profile_image}" WHERE nick_name="${req.params.nick_name}"`
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json(result)
+  });
+})
+
 app.get('/api/search-baby/:mom_nick_name/:baby_nick_name', function(req, res){
     let sql = `SELECT * FROM linked WHERE mom_nick_name="${req.params.mom_nick_name}" AND baby_nick_names="${req.params.baby_nick_name}"`
     con.query(sql, function (err, result, fields) {
@@ -289,6 +297,32 @@ app.post('/api/restartQuest/:questGroupId', function(req, res) {
 
     return res.json(result)
   })
+})
+
+app.post('/api/disconnection/:linkedId', function(req, res) {
+  let sql = `SELECT * FROM select_quest_group WHERE linked_id="${req.params.linkedId}"`;
+  con.query(sql, function(err, result, fields){
+    if(err) throw err;
+
+    if(result[0]) {
+      sql = `DELETE FROM select_quest WHERE group_id="${result[0].id}"`
+      con.query(sql, function(err, result, fields){
+        if(err) throw err;
+      })
+    }
+  })
+
+  sql = `DELETE FROM select_quest_group WHERE linked_id="${req.params.linkedId}"`
+  con.query(sql, function(err, result, fields){
+    if(err) throw err;
+  })
+
+  sql = `DELETE FROM linked WHERE id="${req.params.linkedId}"`
+  con.query(sql, function(err, result, fields){
+    if(err) throw err;
+  })
+
+  res.send('success')
 })
 
 /****************************** App start ************************************/
