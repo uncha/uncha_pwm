@@ -41,7 +41,7 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 9999999999 }}))
 
 
 
@@ -111,6 +111,24 @@ app.post('/api/user', function(req, res){
   con.query(sql, function (err, result) {
     if (err) throw err;
     res.send('success');
+  });
+})
+
+app.post('/api/user/join', function(req, res) {
+  let sql = `SELECT * FROM user WHERE naver_id="${req.body.email}"`
+  con.query(sql, function(err, result, fields) {
+    console.log('RESULT', result)
+    if(err) throw err;
+    if(result.length == 0) {
+      sql = `INSERT INTO user (nick_name, user_type, profile_image, naver_id, password) VALUES ("${req.body.nick_name}", "${req.body.user_type}", "${req.body.profile_image_path}", "${req.body.socialId}", "${req.body.password}")`
+      console.log('SQL', sql)
+      con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        res.json(result)
+      });
+    } else {
+      res.send(null)
+    }
   });
 })
 
@@ -323,6 +341,10 @@ app.post('/api/disconnection/:linkedId', function(req, res) {
   })
 
   res.send('success')
+})
+
+process.on('uncaughtException', (err) => {
+  console.log('ERR', err)
 })
 
 /****************************** App start ************************************/
