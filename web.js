@@ -47,23 +47,21 @@ app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 9999999999 }}
 
 /****************************** DBCONNECT ************************************/
 let mysql = require('mysql');
-// Connection 객체 생성
-let con = mysql.createConnection({
+let con = mysql.createPool({
   host: '175.116.227.108',
   port: 3307,
   user: 'mother',
   password: 'mother1234',
   database: 'mother'
 });
-// Connect
-con.connect(function (err) {
-  if (err) {
-    console.error('mysql connection error');
-    console.error(err);
-    throw err;
-  }
-});
 
+// con.connect(function (err) {
+//   if (err) {
+//     console.error('mysql connection error');
+//     console.error(err);
+//     throw err;
+//   }
+// });
 
 
 /****************************** APIS ************************************/
