@@ -251,16 +251,19 @@ app.post('/api/completeQuest/:questId', function(req, res){
   })
 })
 
-app.post('/api/executionQuest/:questId', function(req, res) {
-  let sql = `UPDATE select_quest_group SET execution_state="1" WHERE id="${req.body.questGroupId}"`
+app.post('/api/ChallengeQuest/:questGroupId', function(req, res) {
+  let sql = `UPDATE select_quest_group SET execution_state="1" WHERE id="${req.params.questGroupId}"`
   con.query(sql, function(err, result) {
     if(err) throw err;
+    res.json(result);
+  })
+})
 
-    sql = `UPDATE select_quest SET execution_date="${req.body.execution_date}", execution_pic="${req.body.execution_pic}", complete_sate="1" WHERE id="${req.params.questId}"`
-    con.query(sql, function(err, result) {
-      if(err) throw err;
-      res.json(result);
-    })
+app.post('/api/executionQuest/:questId', function(req, res) {
+  sql = `UPDATE select_quest SET execution_date="${req.body.execution_date}", execution_pic="${req.body.execution_pic}", complete_sate="1" WHERE id="${req.params.questId}"`
+  con.query(sql, function(err, result) {
+    if(err) throw err;
+    res.json(result);
   })
 })
 
