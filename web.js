@@ -251,7 +251,7 @@ app.post('/api/completeQuest/:questId', function(req, res){
   })
 })
 
-app.post('/api/ChallengeQuest/:questGroupId', function(req, res) {
+app.post('/api/challengeQuest/:questGroupId', function(req, res) {
   let sql = `UPDATE select_quest_group SET execution_state="1" WHERE id="${req.params.questGroupId}"`
   con.query(sql, function(err, result) {
     if(err) throw err;
