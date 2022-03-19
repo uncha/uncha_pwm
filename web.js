@@ -1,15 +1,15 @@
 const express = require('express'); // 설치한 express module을 불러와서 변수(express)에 담습니다.
 console.log('express', express)
 
-// const path = require('path');
-// const bodyParser = require('body-parser');
-// const app = express(); //express를 실행하여 app object를 초기화 합니다.
-// const cookieParser = require('cookie-parser');
-// const expressSession = require('express-session');
-// const _ = require('lodash')
-// const multer  = require('multer')
-// let upload;
-// let mode;
+const path = require('path');
+const bodyParser = require('body-parser');
+const app = express(); //express를 실행하여 app object를 초기화 합니다.
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+const _ = require('lodash')
+const multer  = require('multer')
+let upload;
+let mode;
 
 // if(process.env.USERDOMAIN_ROAMINGPROFILE == 'DESKTOP-77BAV49') {
 //   mode = 'development'
@@ -47,15 +47,15 @@ console.log('express', express)
 
 
 
-// /****************************** DBCONNECT ************************************/
-// let mysql = require('mysql');
-// let con = mysql.createPool({
-//   host: '175.116.227.108',
-//   port: 3307,
-//   user: 'mother',
-//   password: 'mother1234',
-//   database: 'mother'
-// });
+/****************************** DBCONNECT ************************************/
+let mysql = require('mysql');
+let con = mysql.createPool({
+  host: '54.166.12.79',
+  port: 3306,
+  user: 'uncha',
+  password: '!0Tpaudeo',
+  database: 'PWM'
+});
 
 // // con.connect(function (err) {
 // //   if (err) {
