@@ -56,6 +56,7 @@ let con = mysql.createPool({
   password: '!0Tpaudeo',
   database: 'PWM'
 });
+console.log('con', con)
 
 // // con.connect(function (err) {
 // //   if (err) {
