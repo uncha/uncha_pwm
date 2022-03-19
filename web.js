@@ -11,41 +11,40 @@ const multer  = require('multer')
 let upload;
 let mode;
 
-// if(process.env.USERDOMAIN_ROAMINGPROFILE == 'DESKTOP-77BAV49') {
-//   mode = 'development'
-// } else {
-//   mode = 'production'
-// }
-// console.log('MODE', mode)
+if(process.env.USERDOMAIN_ROAMINGPROFILE == 'DESKTOP-77BAV49') {
+  mode = 'development'
+} else {
+  mode = 'production'
+}
+console.log('MODE', mode)
 
-// if(mode == 'production') {
-//   upload = multer({ dest: '/app/mother/public/uploads/' })
-// } else {
-//   upload = multer({ dest: 'public/uploads/' })
-// }
+if(mode == 'production') {
+  upload = multer({ dest: 'public/uploads/' })
+  //upload = multer({ dest: '/app/mother/public/uploads/' })
+} else {
+  upload = multer({ dest: 'public/uploads/' })
+}
 
-// /*************************** express *******************************/
-// app.set('view engine', 'ejs');
-// app.use(express.static(path.join(__dirname + '/public')));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+/*************************** express *******************************/
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname + '/public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// // Add headers
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-//     next();
-// });
+// Add headers
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
-// app.get('/', function(req, res){
-//     res.render('index');
-// });
+app.get('/', function(req, res){
+    res.render('index');
+});
 
-// app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 9999999999 }}))
-
-
+app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 9999999999 }}))
 
 /****************************** DBCONNECT ************************************/
 let mysql = require('mysql');
@@ -371,11 +370,11 @@ console.log('con', con)
 //   res.send('success')
 // })
 
-// process.on('uncaughtException', (err) => {
-//   console.log('ERR', err)
-// })
+process.on('uncaughtException', (err) => {
+  console.log('ERR', err)
+})
 
-// /****************************** App start ************************************/
-// app.listen(9102, function(){
-//   console.log('server on! http://localhost:9102');
-// });
+/****************************** App start ************************************/
+app.listen(9102, function(){
+  console.log('server on! http://localhost:9102');
+});
