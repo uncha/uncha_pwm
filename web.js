@@ -10,6 +10,7 @@ const _ = require('lodash')
 const multer  = require('multer')
 let upload;
 let mode;
+const cors = require('cors');
 
 if(process.env.USERDOMAIN_ROAMINGPROFILE == 'DESKTOP-77BAV49') {
   mode = 'development'
@@ -373,6 +374,8 @@ app.get('/api/test', function(req, res){
 process.on('uncaughtException', (err) => {
   console.log('ERR', err)
 })
+
+app.use(cors())
 
 /****************************** App start ************************************/
 app.listen(3000, function(){
