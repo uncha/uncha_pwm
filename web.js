@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Add headers
 app.use(function (req, res, next) {
-    var allowedDomains = ['http://localhost:3000','http://http://44.202.126.254:3000' ];
+    var allowedDomains = ['http://localhost:3001', 'http://localhost:3001','http://http://44.202.126.254:3000' ];
     var origin = req.headers.origin;
     if(allowedDomains.indexOf(origin) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
@@ -52,7 +52,7 @@ app.get('/', function(req, res){
 app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 9999999999 }}))
 
 /****************************** DBCONNECT ************************************/
-let mysql = require('mysql');
+let mysql = require('mysql2');
 let con = mysql.createPool({
   host: '54.166.12.79',
   port: 3306,
@@ -60,7 +60,6 @@ let con = mysql.createPool({
   password: '!0Tpaudeo',
   database: 'PWM'
 });
-console.log('con', con)
 
 // // con.connect(function (err) {
 // //   if (err) {
@@ -79,6 +78,7 @@ app.get('/api/test', function(req, res){
 app.get('/api/test2', function(req, res){
   let sql = `SELECT * FROM test`
   con.query(sql, function (err, result, fields) {
+    console.log('result', result)
     if (err) throw err;
     res.json(result)
   });
