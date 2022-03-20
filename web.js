@@ -76,7 +76,7 @@ app.get('/api/test', function(req, res){
     res.send('api success')
 })
 
-app.get('/api/test2', function(res, req){
+app.get('/api/test2', function(req, res){
   let sql = `SELECT * FROM test`
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
