@@ -76,6 +76,14 @@ app.get('/api/test', function(req, res){
     res.send('api success')
 })
 
+app.get('/api/test2', function(res, req){
+  let sql = `SELECT * FROM test`
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json(result)
+  });
+})
+
 // app.post('/api/login', function(req, res){
 //     let sql = `SELECT * FROM user WHERE ${req.body.loginType}="${req.body.id}"`
 //     con.query(sql, function (err, result, fields){
